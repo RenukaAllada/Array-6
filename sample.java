@@ -35,5 +35,29 @@ class sample{
     }
 
     /*****************PROBLEM-3************/
+    //TC:0(N*K)
+//SC:0(K)
+    class Solution {
+        public int maxProfit(int k, int[] prices) {
+            if(prices==null || prices.length<=1){
+                return 0;
+            }
+            int[] buy=new int[k];
+            int[] sell=new int[k];
+            Arrays.fill(buy,Integer.MAX_VALUE);
+
+            for(int price:prices){
+                for(int i=0;i<k;i++){
+                    if(i==0){
+                        buy[i]=Math.min(buy[i],price);
+                    }else{
+                        buy[i]=Math.min(buy[i],price-sell[i-1]);
+                    }
+                    sell[i]=Math.max(sell[i],price-buy[i]);
+                }
+            }
+            return sell[k-1];
+        }
+    }
     /*****************PROBLEM-4************/
 }
